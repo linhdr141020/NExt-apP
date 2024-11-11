@@ -7,7 +7,20 @@
     display: flex;
     flex-wrap: wrap;
 }
-
+.row.sm-gutter{
+    margin-left: -5px;
+    margin-right: -5px;
+}
+.c-6{
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+@media (min-width: 740px) {
+    .m-4{
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+}
 @media (min-width: 1113px) {
     .col {
         padding-left: 12px;
