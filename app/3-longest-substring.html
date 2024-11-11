@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const lengthOfLongestSubstring1 = (s) => {
+            const charCountingArr = []
+            let leftIndex = 0, rightIndex = 0;
+
+            let longestSubstringLength = 0
+
+            while(rightIndex < s.length) {
+                const asciValueOfCharAtRight = s.charCodeAt(rightIndex)
+
+                const numberOfCharAtRight = charCountingArr[asciValueOfCharAtRight]
+                charCountingArr[asciValueOfCharAtRight] = isNaN(numberOfCharAtRight) ? 1 : numberOfCharAtRight + 1
+
+                while(charCountingArr[asciValueOfCharAtRight] > 1) {
+                    const asciValueOfCharAtLeft = s.charCodeAt(leftIndex)
+                    charCountingArr[asciValueOfCharAtLeft] --
+                    leftIndex++
+                }
+
+                longestSubstringLength = Math.max(longestSubstringLength, (rightIndex - leftIndex + 1))
+                rightIndex++
+            }
+            return longestSubstringLength
+        }
+        const lengthOfLongestSubstring2 = (s) => {
+            const charPositionMap = new Map()
+            const strLength = s.length
+
+            let longestSubstringLength = 0
+
+            for(let firstIndex = 0, secondIndex = 0; secondIndex < strLength; secondIndex++) {
+                const charAtSecondIndex = s.charAt(secondIndex)
+                if(charPositionMap.has(charAtSecondIndex)) {
+                    firstIndex = Math.max(charPositionMap.get(charAtSecondIndex), firstIndex)
+                }
+                longestSubstringLength = Math.max(longestSubstringLength, secondIndex - firstIndex + 1)
+                charPositionMap.set(charAtSecondIndex, secondIndex + 1)
+            }
+            return longestSubstringLength
+        }
+        console.log(lengthOfLongestSubstring1("bbbbb"));
+        console.log(lengthOfLongestSubstring2("bbbbb"));
+    </script>
+</body>
+</html>
